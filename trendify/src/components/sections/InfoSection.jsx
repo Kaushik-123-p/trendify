@@ -41,11 +41,11 @@ const InfoSection = () => {
         {InfoItems.map((item, index) => (
           <div
             key={index}
-            className="flex flex-col items-center text-center p-4 border rounded-lg shadow-md transform transition-transform duration-300 hover:scale-105"
+            className="flex flex-col items-center text-center p-4 border border-gray-300 rounded-lg shadow-2xl transform transition-transform duration-300 hover:scale-105"
           >
             {item.icon}
 
-            <h3 className="mt-4 text-lg font-semibold">{item.title}</h3>
+            <h3 className="mt-4 text-xl font-semibold">{item.title}</h3>
             <p className="mt-2 text-gray-600">{item.description}</p>
           </div>
         ))}
