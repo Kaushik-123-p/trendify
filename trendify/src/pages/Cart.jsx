@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import EmptyCart from "../assets/images/EmptyCart.webp";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import { FaTrashAlt } from "react-icons/fa";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  const [address, setAddress] = useState("main stret, 0012");
   const navigate = useNavigate();
   return (
     <div className="container mx-auto py-8 px-4 min-h-96 md:px-16 lg:px-24">
@@ -61,7 +62,36 @@ const Cart = () => {
                 ))}
               </div>
             </div>
-            <div></div>
+
+            <div className="md:w-1/3 bg-white p-6 rounded-lg shadow-md  border">
+              <h3 className="text-sm font-semibold mb-5">CART TOTAL</h3>
+              <div className="flex jusbtify-between mb-5 border-b pb-1">
+                <span className="text-sm">Total Items: </span>
+                {/* <span>{cart.products.reduce((total, product) => total + product.quantity, 0)}</span> */}
+                <span>{cart.totalQuantity}</span>
+              </div>
+              <div className="mb-4 border-b pb-2">
+                <p>Shipping : </p>
+                <p className="ml-2 gap-2 flex items-center">
+                  Shipping to :
+                  <span className="text-xs font-bold">{address}</span>
+                </p>
+
+                <button
+                  className="text-blue-500 hover:underline mt-1 ml-2
+                "
+                >
+                  change address
+                </button>
+              </div>
+              <div className="flex justify-between mb-4">
+                <span>Total Price: </span>
+                <span>${cart.totalPrice.toFixed(2)}</span>
+              </div>
+              <button className="w-full bg-red-600 text-white py-2 hover:bg-red-800">
+                Proceed to Checkout
+              </button>
+            </div>
           </div>
         </div>
       ) : (
@@ -72,7 +102,7 @@ const Cart = () => {
             className="w-[800px] h-[350px] bg-no-repeat -mt-32  bg-cover"
           />
           <button
-            className="mt-4 px-4 py-2 bg-red-500 text-white rounded-full absolute bottom-[225px] hover:bg-red-400 transition-colors"
+            className="mt-16 px-4 py-2 bg-red-500 text-white rounded-full absolute hover:bg-red-400 transition-colors"
             onClick={() => navigate("/")}
           >
             RETURN TO SHOPPING
