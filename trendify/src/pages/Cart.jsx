@@ -3,10 +3,14 @@ import { useSelector } from "react-redux";
 import EmptyCart from "../assets/images/EmptyCart.webp";
 import { useNavigate } from "react-router-dom";
 import { FaTrashAlt } from "react-icons/fa";
+import Modal from "../components/modals/Modal";
+import ChangeAddress from "../components/modals/ChangeAddress";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const [address, setAddress] = useState("main stret, 0012");
+  const [isChangeAddressModalOpen, setIsChangeAddressModalOpen] =
+    useState(false);
   const navigate = useNavigate();
   return (
     <div className="container mx-auto py-8 px-4 min-h-96 md:px-16 lg:px-24">
@@ -78,8 +82,8 @@ const Cart = () => {
                 </p>
 
                 <button
-                  className="text-blue-500 hover:underline mt-1 ml-2
-                "
+                  className="text-blue-500 hover:underline mt-1 ml-2"
+                  onClick={() => setIsChangeAddressModalOpen(true)}
                 >
                   change address
                 </button>
@@ -93,6 +97,15 @@ const Cart = () => {
               </button>
             </div>
           </div>
+          <Modal
+            isChangeAddressModalOpen={isChangeAddressModalOpen}
+            setIsChangeAddressModalOpen={setIsChangeAddressModalOpen}
+          >
+            <ChangeAddress
+              setAddress={setAddress}
+              setIsChangeAddressModalOpen={setIsChangeAddressModalOpen}
+            />
+          </Modal>
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center h-screen relative">
