@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import EmptyCart from "../assets/images/EmptyCart.webp";
 import { useNavigate } from "react-router-dom";
 import { FaTrashAlt } from "react-icons/fa";
 import Modal from "../components/modals/Modal";
 import ChangeAddress from "../components/modals/ChangeAddress";
+import {
+  decreaseQuantity,
+  incressQuantity,
+  removeFromCart,
+} from "../redux/features/cartSlice";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
@@ -12,6 +17,7 @@ const Cart = () => {
   const [isChangeAddressModalOpen, setIsChangeAddressModalOpen] =
     useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
     <div className="container mx-auto py-8 px-4 min-h-96 md:px-16 lg:px-24">
       {cart.products.length > 0 ? (
@@ -49,16 +55,25 @@ const Cart = () => {
                     <div className="flex space-x-12 items-center">
                       <p>${product.price}</p>
                       <div className="flex items-center justify-center border">
-                        <button className="text-xl font-bold px-1.5 border-r">
+                        <button
+                          className="text-xl font-bold px-1.5 border-r"
+                          onClick={() => dispatch(decreaseQuantity(product.id))}
+                        >
                           -
                         </button>
                         <p className="text-xl px-2">{product.quantity}</p>
-                        <button className="text-xl font-bold px-1.5 border-l">
+                        <button
+                          className="text-xl font-bold px-1.5 border-l"
+                          onClick={() => dispatch(incressQuantity(product.id))}
+                        >
                           +
                         </button>
                       </div>
                       <p>${(product.price * product.quantity).toFixed(2)}</p>
-                      <button className="text-red-500 hover:text-red-700">
+                      <button
+                        className="text-red-500 hover:text-red-700"
+                        onClick={() => dispatch(removeFromCart(product.id))}
+                      >
                         <FaTrashAlt />
                       </button>
                     </div>
