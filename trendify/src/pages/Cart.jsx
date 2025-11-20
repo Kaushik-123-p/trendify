@@ -19,7 +19,7 @@ const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   return (
-    <div className="container mx-auto py-8 px-4 min-h-96 md:px-16 lg:px-24">
+    <div className="container mx-auto py-8 px-4 min-h-96 md:px-16 lg:px-24 pt-32">
       {cart.products.length > 0 ? (
         <div>
           <h3 className="text-2xl font-semibold mb-4">SHOPPING CART</h3>
@@ -107,7 +107,10 @@ const Cart = () => {
                 <span>Total Price: </span>
                 <span>${cart.totalPrice.toFixed(2)}</span>
               </div>
-              <button className="w-full bg-red-600 text-white py-2 hover:bg-red-800">
+              <button
+                className="w-full bg-red-600 text-white py-2 hover:bg-red-800"
+                onClick={() => navigate("/checkout")}
+              >
                 Proceed to Checkout
               </button>
             </div>

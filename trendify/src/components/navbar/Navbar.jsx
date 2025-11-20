@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const Navbar = () => {
   const products = useSelector((state) => state.cart.products);
   return (
-    <nav className="bg-white shadow-md static top-0 left-0 w-full z-10">
+    <nav className="bg-white shadow-md fixed top-0 left-0 w-full z-10 ">
       <div className="container mx-auto px-4 md:px-16 lg:px-24  py-4 flex justify-between items-center">
         <div className="text-lg font-bold">
           <Link to="/">trendify</Link>
@@ -47,7 +47,7 @@ const Navbar = () => {
           Shop
         </Link>
         <Link to="/" className="hover:underline">
-          Cntact
+          Contact
         </Link>
         <Link to="/" className="hover:underline">
           About
