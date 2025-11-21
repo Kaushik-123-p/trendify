@@ -127,6 +127,60 @@ const Checkout = () => {
                 />
                 <label className="block text-gray-700 ml-2">Debit Card</label>
               </div>
+
+              {paymentMethod === "dc" && (
+                <div className="space-y-4 mt-4 bg-gray-100 p-4 rounded-lg mb-4">
+                  <h3 className="text-xl font-semibold mb-4">
+                    Debit Card Details
+                  </h3>
+                  <div className="mb-4">
+                    <label className="block text-gray-700 font-semibold mb-2">
+                      Card Number
+                    </label>
+                    <input
+                      type="text"
+                      name="cardNumber"
+                      placeholder="Enter Card Number"
+                      className="w-full p-2 border rounded-lg"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-gray-700 font-semibold mb-2">
+                      Card Holder Name
+                    </label>
+                    <input
+                      type="text"
+                      name="cardHolderName"
+                      placeholder="Enter Card Holder Name"
+                      className="w-full p-2 border rounded-lg"
+                    />
+                  </div>
+                  <div className="flex justify-between mb-4">
+                    <div className="w-1/2 mr-2">
+                      <label className="block text-gray-700 font-semibold mb-2">
+                        Expiry Date
+                      </label>
+                      <input
+                        type="text"
+                        name="expiryDate"
+                        placeholder="MM/YY"
+                        className="w-full p-2 border rounded-lg"
+                      />
+                    </div>
+                    <div className="w-1/2 ml-2">
+                      <label className="block text-gray-700 font-semibold mb-2">
+                        CVV
+                      </label>
+                      <input
+                        type="text"
+                        name="cvv"
+                        placeholder="Enter CVV"
+                        className="w-full p-2 border rounded-lg"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
