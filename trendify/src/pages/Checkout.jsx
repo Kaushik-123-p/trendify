@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const Checkout = () => {
   const [billingToggle, setBillingToggle] = useState(true);
   const [shippingToggle, setShippingToggle] = useState(false);
   const [paymentToggle, setPaymentToggle] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("cod");
+
+  const cart = useSelector((state) => state.cart);
   return (
     <div className="container mx-auto py-8 px-4 min-h-96 md:px-16 lg:px-24 pt-32">
       <h3 className="text-2xl font-semibold mb-4">CHECKOUT</h3>
@@ -165,6 +168,7 @@ const Checkout = () => {
                         name="expiryDate"
                         placeholder="MM/YY"
                         className="w-full p-2 border rounded-lg"
+                        required
                       />
                     </div>
                     <div className="w-1/2 ml-2">
@@ -176,6 +180,7 @@ const Checkout = () => {
                         name="cvv"
                         placeholder="Enter CVV"
                         className="w-full p-2 border rounded-lg"
+                        required
                       />
                     </div>
                   </div>
@@ -185,7 +190,42 @@ const Checkout = () => {
           </div>
         </div>
 
-        <div className="md:w-1/3 bg-white p-6 rounded-lg shadow-md  border"></div>
+        <div className="md:w-1/3 bg-white p-6 rounded-lg shadow-md  border">
+          <h3 className="text-lg font-semibold mb-4">Order Summary</h3>
+          <div className="space-y-4">
+            {cart.products.map((product) => (
+              <div key={product.id} className="flex justify-between">
+                <div className="flex items-center">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-16 h-16 object-contain rounded "
+                  />
+                  <div className="ml-4">
+                    <h4 className="font-semibold text-md">{product.name}</h4>
+                    <p className="text-gray-600">
+                      ${product.price} x {product.quantity}
+                    </p>
+                  </div>
+                </div>
+                <div className="text-gray-800">
+                  ${product.price * product.quantity}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 border-t pt-4">
+            <div className="flex justify-between font-semibold text-lg">
+              <span>Total Price:</span>
+              <span className="font-semibold">
+                ${cart.totalPrice.toFixed(2)}
+              </span>
+            </div>
+          </div>
+          <button className="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition duration-300">
+            Place Order
+          </button>
+        </div>
       </div>
     </div>
   );
