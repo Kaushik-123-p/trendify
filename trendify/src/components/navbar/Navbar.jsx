@@ -1,16 +1,21 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "../modals/Modal";
 import Login from "../auth/Login";
 import Register from "../auth/Register";
+import { setSearchTerm } from "../../redux/features/productSlice";
 
 const Navbar = () => {
   const [isModelOpen, setIsModelOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
+  const [search, setSearch] = useState();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const openSignUp = () => {
     setIsLogin(false);
@@ -23,6 +28,12 @@ const Navbar = () => {
   };
 
   const products = useSelector((state) => state.cart.products);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    dispatch(setSearchTerm(search));
+    navigate("/filter-data");
+  };
   return (
     <nav className="bg-white shadow-md fixed top-0 left-0 w-full z-10 ">
       <div className="container mx-auto px-4 md:px-16 lg:px-24  py-4 flex justify-between items-center">
@@ -30,11 +41,12 @@ const Navbar = () => {
           <Link to="/">trendify</Link>
         </div>
         <div className="relative flex-1 mx-4">
-          <form action="">
+          <form action="" onClick={handleSearch}>
             <input
               className="w-full border px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-red-500"
               type="text"
               placeholder="Search"
+              onChange={(e) => setSearch(e.target.value)}
             />
             <FaSearch className="absolute  top-3 right-3 text-red-500" />
           </form>
