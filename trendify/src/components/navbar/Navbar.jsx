@@ -12,6 +12,16 @@ const Navbar = () => {
   const [isModelOpen, setIsModelOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
 
+  const openSignUp = () => {
+    setIsLogin(false);
+    setIsModelOpen(true);
+  };
+
+  const openLoginUp = () => {
+    setIsLogin(true);
+    setIsModelOpen(true);
+  };
+
   const products = useSelector((state) => state.cart.products);
   return (
     <nav className="bg-white shadow-md fixed top-0 left-0 w-full z-10 ">
@@ -66,7 +76,11 @@ const Navbar = () => {
       </div>
 
       <Modal isModelOpen={isModelOpen} setIsModelOpen={setIsModelOpen}>
-        {isLogin ? <Login /> : <Register />}
+        {isLogin ? (
+          <Login openSignUp={openSignUp} />
+        ) : (
+          <Register openLoginUp={openLoginUp} />
+        )}
       </Modal>
     </nav>
   );
