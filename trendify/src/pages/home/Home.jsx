@@ -15,7 +15,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(setProducts(productsData));
-  });
+  }, [dispatch]);
   return (
     <div className="pt-32">
       <div className="bg-white mt-2 px-4 md:px-16 lg:px-24 ">
