@@ -32,7 +32,7 @@ const Checkout = ({ setOrder }) => {
   return (
     <div className="container mx-auto py-8 px-4 min-h-96 md:px-16 lg:px-24 pt-32">
       <h3 className="text-2xl font-semibold mb-4">CHECKOUT</h3>
-      <div className="flex flex-col md:flex-row justify-between space-x-10 mt-8">
+      <div className="flex flex-col md:flex-row md:space-x-10 mt-8">
         <div className="md:w-2/3">
           <div className="border p-2 mb-6 rounded-lg shadow-md">
             <div
@@ -52,7 +52,7 @@ const Checkout = ({ setOrder }) => {
                   type="text"
                   name="name"
                   placeholder="Enter Name"
-                  className="w-full px-3 py-2 border"
+                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                 />
               </div>
               <div>
@@ -61,7 +61,7 @@ const Checkout = ({ setOrder }) => {
                   type="email"
                   name="email"
                   placeholder="Enter Email"
-                  className="w-full px-3 py-2 border"
+                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                 />
               </div>
               <div>
@@ -70,7 +70,7 @@ const Checkout = ({ setOrder }) => {
                   type="text"
                   name="phone"
                   placeholder="Enter Phone Number"
-                  className="w-full px-3 py-2 border"
+                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                 />
               </div>
             </div>
@@ -94,7 +94,7 @@ const Checkout = ({ setOrder }) => {
                   type="text"
                   name="address"
                   placeholder="Enter Address"
-                  className="w-full px-3 py-2 border"
+                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                   onChange={(e) =>
                     setShippingInfo({
                       ...shippingInfo,
@@ -109,7 +109,7 @@ const Checkout = ({ setOrder }) => {
                   type="text"
                   name="city"
                   placeholder="Enter City"
-                  className="w-full px-3 py-2 border"
+                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                   onChange={(e) =>
                     setShippingInfo({ ...shippingInfo, city: e.target.value })
                   }
@@ -121,7 +121,7 @@ const Checkout = ({ setOrder }) => {
                   type="text"
                   name="zip"
                   placeholder="Enter Zip Code"
-                  className="w-full px-3 py-2 border"
+                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                   onChange={(e) =>
                     setShippingInfo({ ...shippingInfo, zip: e.target.value })
                   }
@@ -142,25 +142,37 @@ const Checkout = ({ setOrder }) => {
             <div className={`space-y-4 ${paymentToggle ? "block" : "hidden"}`}>
               <div className="flex items-center mb-2">
                 <input
+                  id="payment-cod"
                   type="radio"
                   name="paymentMethod"
+                  aria-label="Cash on Delivery"
                   checked={paymentMethod === "cod"}
                   onChange={() => setPaymentMethod("cod")}
-                  className="h4 w-4"
+                  className="h-4 w-4"
                 />
-                <label className="block text-gray-700 ml-2">
+                <label
+                  htmlFor="payment-cod"
+                  className="block text-gray-700 ml-2"
+                >
                   Cash on Delivery
                 </label>
               </div>
               <div className="flex items-center mb-2">
                 <input
+                  id="payment-dc"
                   type="radio"
                   name="paymentMethod"
+                  aria-label="Debit Card"
                   checked={paymentMethod === "dc"}
                   onChange={() => setPaymentMethod("dc")}
-                  className="h4 w-4"
+                  className="h-4 w-4"
                 />
-                <label className="block text-gray-700 ml-2">Debit Card</label>
+                <label
+                  htmlFor="payment-dc"
+                  className="block text-gray-700 ml-2"
+                >
+                  Debit Card
+                </label>
               </div>
 
               {paymentMethod === "dc" && (
@@ -190,8 +202,8 @@ const Checkout = ({ setOrder }) => {
                       className="w-full p-2 border rounded-lg"
                     />
                   </div>
-                  <div className="flex justify-between mb-4">
-                    <div className="w-1/2 mr-2">
+                  <div className="flex flex-col sm:flex-row gap-2 mb-4">
+                    <div className="sm:w-1/2">
                       <label className="block text-gray-700 font-semibold mb-2">
                         Expiry Date
                       </label>
@@ -199,11 +211,11 @@ const Checkout = ({ setOrder }) => {
                         type="text"
                         name="expiryDate"
                         placeholder="MM/YY"
-                        className="w-full p-2 border rounded-lg"
+                        className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                         required
                       />
                     </div>
-                    <div className="w-1/2 ml-2">
+                    <div className="sm:w-1/2">
                       <label className="block text-gray-700 font-semibold mb-2">
                         CVV
                       </label>
@@ -211,7 +223,7 @@ const Checkout = ({ setOrder }) => {
                         type="text"
                         name="cvv"
                         placeholder="Enter CVV"
-                        className="w-full p-2 border rounded-lg"
+                        className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                         required
                       />
                     </div>
@@ -222,20 +234,23 @@ const Checkout = ({ setOrder }) => {
           </div>
         </div>
 
-        <div className="md:w-1/3 bg-white p-6 rounded-lg shadow-md  border">
+        <div className="w-full md:w-1/3 bg-white p-6 rounded-lg shadow-md border mt-6 md:mt-0">
           <h3 className="text-lg font-semibold mb-4">Order Summary</h3>
           <div className="space-y-4">
             {cart.products.map((product) => (
-              <div key={product.id} className="flex justify-between">
+              <div
+                key={product.id}
+                className="flex justify-between items-center"
+              >
                 <div className="flex items-center">
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-16 h-16 object-contain rounded "
+                    className="w-12 h-12 sm:w-16 sm:h-16 object-contain rounded"
                   />
                   <div className="ml-4">
                     <h4 className="font-semibold text-md">{product.name}</h4>
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 text-sm">
                       ${product.price} x {product.quantity}
                     </p>
                   </div>
@@ -255,7 +270,7 @@ const Checkout = ({ setOrder }) => {
             </div>
           </div>
           <button
-            className="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition duration-300"
+            className="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition duration-300 mt-4"
             onClick={handleOrder}
           >
             Place Order

@@ -37,16 +37,20 @@ const InfoSection = () => {
   ];
   return (
     <div className="bg-white pb-8 pt-12">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {InfoItems.map((item, index) => (
           <div
             key={index}
-            className="flex flex-col items-center text-center p-4 border border-gray-300 rounded-lg shadow-2xl transform transition-transform duration-300 hover:scale-105"
+            className="flex flex-col items-center text-center p-4 border border-gray-300 rounded-lg shadow-sm transform transition-transform duration-300 hover:scale-105 min-h-[160px]"
           >
-            {item.icon}
+            <div className="text-2xl sm:text-3xl">{item.icon}</div>
 
-            <h3 className="mt-4 text-xl font-semibold">{item.title}</h3>
-            <p className="mt-2 text-gray-600">{item.description}</p>
+            <h3 className="mt-4 text-lg sm:text-xl font-semibold">
+              {item.title}
+            </h3>
+            <p className="mt-2 text-gray-600 text-sm sm:text-base">
+              {item.description}
+            </p>
           </div>
         ))}
       </div>

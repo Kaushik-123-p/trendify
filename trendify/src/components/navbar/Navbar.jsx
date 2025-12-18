@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaSearch } from "react-icons/fa";
-import { FaShoppingCart } from "react-icons/fa";
-import { FaUser } from "react-icons/fa";
+import {
+  FaSearch,
+  FaShoppingCart,
+  FaUser,
+  FaBars,
+  FaTimes,
+} from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../modals/Modal";
 import Login from "../auth/Login";
@@ -12,6 +16,7 @@ import { setSearchTerm } from "../../redux/features/productSlice";
 const Navbar = () => {
   const [isModelOpen, setIsModelOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [search, setSearch] = useState();
 
   const dispatch = useDispatch();
@@ -66,13 +71,17 @@ const Navbar = () => {
           >
             Login | Register
           </button>
-          <button className="block md:hidden">
-            <FaUser />
+          <button
+            className="block md:hidden mr-2"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <FaTimes /> : <FaBars />}
           </button>
         </div>
       </div>
 
-      <div className="flex items-center justify-center space-x-10 py-4 text-sm font-bold">
+      <div className="hidden md:flex items-center justify-center space-x-10 md:space-x-16 lg:space-x-18 py-4 text-sm font-bold">
         <Link to="/" className="hover:underline">
           Home
         </Link>
@@ -86,6 +95,41 @@ const Navbar = () => {
           About
         </Link>
       </div>
+
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-white shadow-md absolute top-full left-0 w-full z-20">
+          <div className="flex flex-col p-4 space-y-2">
+            <Link
+              to="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 border-b"
+            >
+              Home
+            </Link>
+            <Link
+              to="/shop"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 border-b"
+            >
+              Shop
+            </Link>
+            <Link
+              to="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 border-b"
+            >
+              Contact
+            </Link>
+            <Link
+              to="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2"
+            >
+              About
+            </Link>
+          </div>
+        </div>
+      )}
 
       <Modal isModelOpen={isModelOpen} setIsModelOpen={setIsModelOpen}>
         {isLogin ? (

@@ -44,12 +44,12 @@ const Order = ({ order }) => {
           <span>Total Price :</span>
           <span className="font-semibold">{order.totalPrice.toFixed(2)}</span>
         </div>
-        <div className="mt-6">
-          <button className="bg-green-500 text-white py-2 px-4 hover:bg-gray-600">
-            order tracking
+        <div className="mt-6 flex flex-col sm:flex-row gap-3">
+          <button className="w-full sm:w-auto bg-green-500 text-white py-2 px-4 hover:bg-gray-600 rounded">
+            Order Tracking
           </button>
           <button
-            className="ml-4 bg-red-600 text-white py-2 px-4 hover:bg-red-800"
+            className="w-full sm:w-auto bg-red-600 text-white py-2 px-4 hover:bg-red-800 rounded"
             onClick={() => navigate("/")}
           >
             Continue Shopping

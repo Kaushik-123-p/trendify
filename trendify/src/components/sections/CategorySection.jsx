@@ -19,20 +19,21 @@ const CategorySection = () => {
     },
   ];
   return (
-    <div className="container mx-auto my-8 grid grid-cols-1 sm:grid-cols-3  gap-6 ">
+    <div className="container mx-auto my-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
       {categories.map((category, index) => (
         <div
           key={index}
-          className="relative h-64 transform transition-transform duration-300 hover:scale-105 cursor-pointer"
+          className="relative h-44 sm:h-56 md:h-64 transform transition-transform duration-300 hover:scale-105 cursor-pointer rounded-lg overflow-hidden"
         >
           <img
             src={category.imageurl}
-            alt=""
-            className="w-full h-full object-cover rounded-lg shadow-md"
+            alt={category.title}
+            className="w-full h-full object-cover"
           />
-          <div className="absolute top-20 left-12">
-            <p className="text-xl font-bold">{category.title}</p>
-            <p className="text-sm text-gray-600">View All</p>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+          <div className="absolute bottom-4 left-4 text-white">
+            <p className="text-lg sm:text-xl font-bold">{category.title}</p>
+            <p className="text-sm opacity-90">View All</p>
           </div>
         </div>
       ))}

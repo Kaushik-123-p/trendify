@@ -19,15 +19,15 @@ const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   return (
-    <div className="container mx-auto py-8 px-4 min-h-96 md:px-16 lg:px-24 pt-32">
+    <div className="container mx-auto py-8 px-4 min-h-screen md:px-16 lg:px-24 pt-24 md:pt-40">
       {cart.products.length > 0 ? (
         <div>
           <h3 className="text-2xl font-semibold mb-4">SHOPPING CART</h3>
-          <div className="flex flex-col md:flex-row justify-between space-x-10 mt-8">
-            <div className="md:w-2/3">
-              <div className="flex justify-between border-b items-center mb-4 text-xs font-bold">
+          <div className="flex flex-col lg:flex-row lg:space-x-10 mt-8">
+            <div className="lg:w-2/3">
+              <div className="hidden sm:flex justify-between border-b items-center mb-4 text-xs font-bold">
                 <p>PRODUCTS</p>
-                <div className="flex space-x-8">
+                <div className="flex space-x-12">
                   <p>PRICE</p>
                   <p>QUANTITY</p>
                   <p>SUBTOTAL</p>
@@ -38,9 +38,9 @@ const Cart = () => {
                 {cart.products.map((product) => (
                   <div
                     key={product.id}
-                    className="flex items-center justify-between p-3 border-b"
+                    className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 border-b gap-3"
                   >
-                    <div className="md:flex items-center space-x-4">
+                    <div className="flex items-center">
                       <img
                         src={product.image}
                         alt={product.name}
@@ -50,28 +50,38 @@ const Cart = () => {
                         <h3 className="text-lg font-semibold">
                           {product.name}
                         </h3>
+                        <div className="mt-2 sm:hidden text-sm text-gray-600 space-y-1">
+                          <div>Price: ${product.price}</div>
+                          <div>Quantity: {product.quantity}</div>
+                          <div>
+                            Subtotal: $
+                            {(product.price * product.quantity).toFixed(2)}
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div className="flex space-x-12 items-center">
-                      <p>${product.price}</p>
+                    <div className="flex  sm:flex-row sm:space-x-14 items-start sm:items-center space-y-3 sm:space-y-0 text-sm">
+                      <p className="hidden sm:block">${product.price}</p>
                       <div className="flex items-center justify-center border">
                         <button
-                          className="text-xl font-bold px-1.5 border-r"
+                          className="text-lg font-bold px-2 border-r"
                           onClick={() => dispatch(decreaseQuantity(product.id))}
                         >
                           -
                         </button>
-                        <p className="text-xl px-2">{product.quantity}</p>
+                        <p className="text-lg px-3">{product.quantity}</p>
                         <button
-                          className="text-xl font-bold px-1.5 border-l"
+                          className="text-lg font-bold px-2 border-l"
                           onClick={() => dispatch(incressQuantity(product.id))}
                         >
                           +
                         </button>
                       </div>
-                      <p>${(product.price * product.quantity).toFixed(2)}</p>
+                      <p className="hidden sm:block">
+                        ${(product.price * product.quantity).toFixed(2)}
+                      </p>
                       <button
-                        className="text-red-500 hover:text-red-700"
+                        className="text-red-500 hover:text-red-700 p-1 ml-2 text-xl md:-ml-10"
                         onClick={() => dispatch(removeFromCart(product.id))}
                       >
                         <FaTrashAlt />
@@ -82,9 +92,9 @@ const Cart = () => {
               </div>
             </div>
 
-            <div className="md:w-1/3 bg-white p-6 rounded-lg shadow-md  border">
+            <div className="w-full lg:w-1/3  bg-white p-4 rounded-lg shadow-md border mt-10 mx-auto lg:mt-0">
               <h3 className="text-sm font-semibold mb-5">CART TOTAL</h3>
-              <div className="flex jusbtify-between mb-5 border-b pb-1">
+              <div className="flex justify-between mb-5 border-b pb-1">
                 <span className="text-sm">Total Items: </span>
                 {/* <span>{cart.products.reduce((total, product) => total + product.quantity, 0)}</span> */}
                 <span>{cart.totalQuantity}</span>
@@ -116,8 +126,8 @@ const Cart = () => {
             </div>
           </div>
           <Modal
-            isChangeAddressModalOpen={isChangeAddressModalOpen}
-            setIsChangeAddressModalOpen={setIsChangeAddressModalOpen}
+            isModelOpen={isChangeAddressModalOpen}
+            setIsModelOpen={setIsChangeAddressModalOpen}
           >
             <ChangeAddress
               setAddress={setAddress}
@@ -126,14 +136,14 @@ const Cart = () => {
           </Modal>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center h-screen relative">
+        <div className="flex flex-col items-center justify-center min-h-[60vh] py-12">
           <img
             src={EmptyCart}
             alt="Empty Cart Image"
-            className="w-[800px] h-[350px] bg-no-repeat -mt-32  bg-cover"
+            className="w-full max-w-md sm:max-w-lg md:max-w-2xl h-auto object-contain mb-8"
           />
           <button
-            className="mt-16 px-4 py-2 bg-red-500 text-white rounded-full absolute hover:bg-red-400 transition-colors"
+            className="mt-2 px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-400 transition-colors"
             onClick={() => navigate("/")}
           >
             RETURN TO SHOPPING

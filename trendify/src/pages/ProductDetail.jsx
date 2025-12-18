@@ -17,27 +17,33 @@ const ProductDetail = () => {
   if (!product) return <div>Loading...</div>;
 
   return (
-    <div className="container mx-auto pt-40 py-8 px-4 md:px:16 lg:px-24">
+    <div className="container mx-auto pt-32 py-8 px-4 md:px-16 lg:px-24">
       <div className="flex flex-col md:flex-row gap-x-16">
-        <div className="md:h-1/2 py-4 shadow-md md:px-8 h-96 flex justify-center">
-          <img src={product.image} alt={product.name} className="h-full" />
+        <div className="py-4 shadow-md md:px-8 flex justify-center w-full md:w-1/2">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-auto object-contain max-h-96"
+          />
         </div>
 
-        <div className="md:w-1/2 p-4 shadow-md md:p-16 flex flex-col items-center gap-y-2">
-          <h2 className="text-3xl font-semibold mb-2">{product.name}</h2>
-          <p className="text-xl font-semibold text-gray-800 mb-4">
+        <div className="md:w-1/2 w-full p-4 shadow-md md:p-16 flex flex-col items-start gap-y-2">
+          <h2 className="text-2xl md:text-3xl font-semibold mb-2">
+            {product.name}
+          </h2>
+          <p className="text-lg md:text-xl font-semibold text-gray-800 mb-4">
             ${product.price}
           </p>
 
-          <div className="flex items-center mb-4 gap-x-2">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center mb-4 gap-2">
             <input
               type="number"
               id="quantity"
               min="1"
-              className="border p-1 w-16"
+              className="border p-1 w-full sm:w-16 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
             />
 
-            <button className="bg-red-600 text-white py-1.5 px-5 hover:bg-red-800">
+            <button className="w-full sm:w-auto bg-red-600 text-white py-2 px-5 hover:bg-red-800 rounded">
               Add to cart
             </button>
           </div>
